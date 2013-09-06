@@ -13,8 +13,8 @@ class XmlParser extends RegexParsers {
 	case parsedNodes => parsedNodes.foldRight(""){ _ + _ }
    }
 
-   def openTag:Parser[String] = "<" ~ tag ~ "></" ~ tag ~ ">" ^^ {
-	case "<" ~a ~ "></" ~ b ~ ">" => "<"+a+"></"+b+">"
+   def openTag:Parser[String] = "<" ~ tag ~ ">"~ tags ~"</" ~ tag ~ ">" ^^ {
+	case "<" ~a ~ ">"~nested ~"</" ~ b ~ ">" => "<"+a+">"+nested+"</"+b+">"
    }
    def closedTag:Parser[String] = "<" ~> tag <~ "/>" ^^ {
 	case a => "<"+a+"/>"
