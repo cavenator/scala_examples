@@ -1,0 +1,12 @@
+Exercise 3: def filterOnZeros(list:List[Int]):List[Int] = { list.filter(_ != 0) }
+Exercise 4: def getIntegersFromMapKeys(stringCollection:Array[String], map:Map[String,Int]):Array[Int] = {
+      val output = stringCollection.flatMap(map.get)
+      output.toArray
+   }
+
+Exercise 6:  (lst :\ List[Int]())(_ +: _).reverse
+Exercise 7: (prices zip quantities).map(Function.tupled(_*_))
+Exercise 8:  def groupedArrays(array:Array[Int],cols:Int):Array[Array[Int]] = {
+		   val groupedIterable = array.grouped(cols)
+		   groupedIterable.toArray
+		}

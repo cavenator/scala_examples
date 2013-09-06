@@ -1,0 +1,31 @@
+1)  
+class Pair[T,S](val first:T, val second:S){
+   def swap = {
+      new Pair(second,first)
+   }
+ }
+
+2)
+class Pair[T](var first:T, var second:T){
+  def swap = {
+     val temp = first
+     first = second
+     second = temp
+  }
+}
+
+3) 
+
+
+6)
+def middle[T](it: Iterable[T]) = {
+     val count = it.size
+     val middleIndex = count/2
+     var counter = 0
+     var middleElement = it.head
+     for (elem <- it) {
+         if (counter == middleIndex) middleElement = elem
+         counter = counter + 1
+     }
+     middleElement
+}

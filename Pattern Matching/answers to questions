@@ -1,0 +1,102 @@
+2) def swap(tup:(Int, Int)):(Int, Int) = {
+     tup match {
+     	case (x, y) => (y,x)
+     }
+   }
+
+3) def swap(arr: Array[Int]):Unit = {
+     arr match {
+    	case Array(x,y,_*) => arr(0) = y; arr(1) = x
+    	case _ => 
+     }
+   }
+
+4) def price(item:Item):Double = {
+      item match {
+      	case Article(_, p) => p
+      	case Bundle(_, disc, its @ _*) => its.map(price _).sum - disc
+      	case Multiple(x, someItem:Item) => x * price(someItem)
+      }
+    }
+
+5)  def treeComputation(values:List[Any]):Int = {
+     if (values.isEmpty) return 0
+       else {
+           values.head match {
+                case x:Int => x + treeComputation(values.tail)
+                case embeddedList:List[Any] => treeComputation(embeddedList) + treeComputation(values.tail)
+           }
+       }
+    }
+
+6)  
+sealed abstract class BinaryTree
+case class Leaf(value: Int) extends BinaryTree
+case class Node(left: BinaryTree, right:BinaryTree) extends BinaryTree
+    def leafSum(tree: BinaryTree): Int = {
+       tree match {
+          case Leaf(x) => x
+     	  case Node(a,b) => leafSum(a) + leafSum(b)
+       }
+    }
+
+7) 
+
+sealed abstract class BinaryTree
+case class Leaf(value: Int) extends BinaryTree
+case class Node(nodes: BinaryTree*) extends BinaryTree
+
+   def leafSum(tree: BinaryTree):Int = {
+      tree match { 
+      	case Leaf(x) => x
+      	case Node(rest @ _*) => rest.map(leafSum).sum
+      }
+   }
+
+8)  
+
+def eval(tree:BinaryTree):Int = {
+      tree match {
+         case Leaf(x) => x
+         case Node('-', Leaf(x)) => -x
+         case Node('+', left, right @ _*) => (eval(left) + right.map(eval).sum)
+         case Node('-', left, right @ _*) => (eval(left) - right.map(eval).sum)
+         case Node('*', left, right @ _*) => (eval(left) * right.map(eval).sum)
+         case Node('/', left, right @ _*) => (eval(left) / right.map(eval).sum)
+     }
+   }
+
+
+9)  def computeNonNoneValues(list: List[Option[Int]]):Int = {
+       list.map((x) =>  if (x.isEmpty) 0; else x.get).sum
+    }
+
+10) def compose(fun1:(Double) => Option[Double], fun2:(Double) => Option[Double]) = {
+     | (x:Double) => if (fun1(x).isEmpty || fun2(x).isEmpty) None; else fun1(fun2(x).get)}
+
+Sample exercise with 10)
+
+scala> import scala.math._
+import scala.math._
+
+scala> def f(x:Double) = if (x >= 0) Some(sqrt(x)) else None
+f: (x: Double)Option[Double]
+
+scala> def g(x:Double) = if (x!=1) Some(1/(x-1)) else None
+g: (x: Double)Option[Double]
+
+scala> val h=compose(f,g)
+h: Double => Option[Double] = <function1>
+
+scala> h(2)
+res1: Option[Double] = Some(1.0)
+
+scala> h(1)
+res2: Option[Double] = None
+
+scala> h(0)
+res3: Option[Double] = None
+
+scala> h(5)
+res4: Option[Double] = Some(0.5)
+

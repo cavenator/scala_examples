@@ -1,0 +1,14 @@
+import scala.collection.mutable._
+
+object Exercise1 {
+	def main(args:Array[String]) = {
+		val results = values((x:Int)=> x+5, 0, 5)
+		results.foreach(println)
+	}
+
+	def values(fun: (Int) => Int, low:Int, high:Int) = {
+		val results = new ArrayBuffer[(Int,Int)]
+		for (i <- low until high + 1) results.append((i, fun(i)))
+		results.toSeq
+	}
+}

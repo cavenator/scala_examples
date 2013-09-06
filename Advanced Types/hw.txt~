@@ -1,0 +1,175 @@
+1)
+class Bug { 
+   var distance = 0 
+   var orientation = 1 
+
+   def move(units:Int) = { 
+	orientation match { 
+	   case 1 => distance = distance + units 
+	   case 0 => distance = distance - units 
+	} 
+	this 
+   } 
+
+   def show = { 
+	println(distance) 
+	this 
+   }
+ 
+   def turn = { 
+	orientation match { 
+	     case 1 => orientation = 0 
+	     case 0 => orientation = 1 
+	} 
+	this 
+   } 
+}
+2)  
+object show
+object then
+object around
+
+class Bug {
+
+   var distance = 0
+   var orientation = 1
+
+   def move(units:Int) = {
+	orientation match {
+	   case 1 => distance = distance + units
+	   case 0 => distance = distance - units
+	}
+	this
+   }
+
+   def turn(arg:around.type) = {
+	orientation match {
+	   case 1 => orientation = 0
+	   case 0 => orientation = 1
+	}
+	this
+   }
+
+   def and(arg:show.type) = {
+	println(distance)
+	this
+   }
+
+   def and(arg:then.type) = {
+	this
+   }
+}
+
+object Bug extends App {
+    val bugsy = new Bug
+    bugsy move 4 and show and then move 6 and show turn around move 5 and show
+}
+
+3) 
+object Title
+object Author
+
+class Book {
+    var title:String = ""
+    var author:String = ""
+    private var argsToUse:Any = null
+
+    def set(obj:Title.type):this.type = { argsToUse = obj; this }
+    def set(obj:Author.type):this.type = {argsToUse = obj; this }
+    def to(args: String) = {
+        argsToUse match {
+            case Title => title = args
+            case Author => author = args
+        }
+        this
+    }
+
+    override def toString:String = {
+        "%s by %s".format(title, author)
+    }
+}
+
+4)
+import scala.collection.mutable.ArrayBuffer
+
+class Network {
+    class Member(val name:String) {
+	val outer = Network.this
+	val contacts = new ArrayBuffer[Member]
+	def equals(that:Member):Boolean = {
+	    this.outer == that.outer
+	}
+    }
+
+    private val members = new ArrayBuffer[Member]
+
+    def join(name: String) = {
+	val m = new Member(name)
+	members += m
+	m
+    }
+}
+
+5) 
+
+6) 
+object EitherExample {
+        def findMe(array:Array[Int], number: Int):Int Either Int = {
+
+		var min = java.lang.Integer.MAX_VALUE
+		var indexClosestTo = 0
+		for (i <- 0 until array.length){
+			val delta = Math.abs(number - array(i))
+			if (delta == 0){
+				return Right(i)
+			} else if (delta < min){
+				min = delta
+				indexClosestTo = i
+			} else {
+				return Left(indexClosestTo)
+			}
+		}
+		return Left(indexClosestTo)
+ 	}
+
+	def evaluate(verdict:Either[Int, Int]) = {
+		verdict match { 
+			case Left(x) => println("Index that comes closest is "+x)
+			case Right(x) => println("Index found: "+x)
+		}
+	}
+
+      def main(args:Array[String]):Unit = {
+	 val array = Array(-15, -12, -9)
+	 val number = args(0).toInt
+	 val verdict = findMe(array,number)
+	evaluate(verdict)
+      }
+
+}
+
+7)  def openAndClose(target: {def close:Unit}, processMe: ({def close:Unit}) => Unit) = {
+     | try {
+     |       processMe(target)
+     | } catch {
+     |      case ex:Throwable => ex.printStackTrace
+     | }
+     | target.close
+     | }
+
+
+8)  
+
+def printValues(f:{ def apply(x:Int):Int}, from:Int, to:Int) = {
+      for (i <- from until (to + 1)) println(f(i))
+}
+
+9) 
+
+abstract class Dim[T](val value:Double, val name:String){
+    this:T =>
+	protected def create(v:Double):T
+        def +(other:Dim[T]) = create(value + other.value)
+        override def toString() = value + " "+name
+}
+
