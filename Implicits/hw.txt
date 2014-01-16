@@ -1,0 +1,8 @@
+1) How does -> work? That is, how can "Hello" -> 42 and 42 -> "Hello" be pairs ("Hello", 42) and (42,"Hello")?  Hint:  Predef.any2ArrowAssoc.
+
+2)Define an operator +% that adds a given percentage to a value.  For example, 120 +% 10 should be 132.  Hint: Since operators are methods, not functions, you will also need to provide an implicit.
+NOTE:  look at PercentageAddedInt.scala for code implementation.
+
+to add it to program scope (will only work for Int): import PercentageAddedInt._
+
+
